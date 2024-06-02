@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class playerball : MonoBehaviour
 {
-    public float JumpPower;
+    public float JumpPower = 10;
     bool isJump;
     Rigidbody rigid;
 
@@ -31,7 +31,7 @@ public class playerball : MonoBehaviour
     }
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.name == "Floor")
+        if (collision.gameObject.name == "test")
             isJump = false;
     }
 }
