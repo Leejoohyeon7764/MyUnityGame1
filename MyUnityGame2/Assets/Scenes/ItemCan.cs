@@ -2,17 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Item : MonoBehaviour
+public class ItemCan : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+
+
+    public float rotateSpeed;
+
 
     // Update is called once per frame
     void Update()
     {
+        transform.Rotate(Vector3.down * rotateSpeed *Time.deltaTime, Space.World);
         
     }
+    
 }

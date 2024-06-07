@@ -2,36 +2,53 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class playerball : MonoBehaviour
+public class PlayerBall : MonoBehaviour
 {
-    public float JumpPower = 10;
+    public float jumpPower;
+    public int itemCount;
     bool isJump;
-    Rigidbody rigid;
 
+    AudioSource audio;
+
+    Rigidbody rigid; 
+    
     void Awake()
     {
-        isJump = false;
-        rigid = GetComponent<Rigidbody>();
+            rigid = GetComponent<Rigidbody>();
+            audio = GetComponent<AudioSource>();
+            isJump=false;
     }
 
-    void Update()
-    {
-        if (Input.GetButtonDown("Jump")&& !isJump)
+    void Update(){
+        if(Input.GetButtonDown("Jump") && !isJump)
         {
-           isJump = true;
-           rigid.AddForce(new Vector3(0, JumpPower, 0), ForceMode.Impulse);
+            isJump=true;
+            rigid.AddForce(new Vector3(0,jumpPower,0),ForceMode.Impulse);
         }
     }
 
-    void FixedUpdate()
+    void FixedUpdate()  
     {
-        float h = Input.GetAxisRaw("Horizontal");
+        float h = Input.GetAxisRaw("Horizontal");  
         float v = Input.GetAxisRaw("Vertical");
-        rigid.AddForce(new Vector3(h, 0, v),ForceMode.Impulse);
+
+        rigid.AddForce(new Vector3(h,0,v), ForceMode.Impulse);
     }
-    void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.name == "test")
-            isJump = false;
+
+    void OnCollisionEnter(Collision collision) 
+    { 
+        
+        if(collision.gameObject.tag == "Floor")
+        isJump=false;
+    }
+
+    void OnTriggerEnter(Collider other){
+
+        if (other.tag == "Item"){
+            itemCount++;
+            audio.Play(); 
+            other.gameObject.SetActive(false);
+
+        }
     }
 }
