@@ -6,10 +6,10 @@ public class PlayerBall : MonoBehaviour
 {
     public float jumpPower;
     public int itemCount;
+    public GameManagerLogic manager;
+
     bool isJump;
-
     AudioSource audio;
-
     Rigidbody rigid; 
     
     void Awake()
